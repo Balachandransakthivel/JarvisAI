@@ -1,0 +1,81 @@
+export type ListeningState = 'idle' | 'wake-word' | 'listening' | 'processing' | 'thinking' | 'executing' | 'speaking' | 'error';
+
+export interface AgentPlanStep {
+  step: number;
+  tool: string;
+  description: string;
+  params?: Record<string, any>;
+  status?: 'pending' | 'started' | 'completed' | 'failed';
+}
+
+export interface DeviceInfo {
+  id: string;
+  name: string;
+  type: string;
+  ip_address: string;
+  status: 'Online' | 'Offline' | 'Busy';
+  battery: number;
+  network: string;
+  screen_connected: boolean;
+  capabilities: string[];
+}
+
+export interface Message {
+  id: string;
+  role: 'user' | 'jarvis' | 'system';
+  content: string;
+  timestamp: Date;
+  intent?: string;
+}
+
+
+export interface MemoryItem {
+  id: string;
+  key: string;
+  value: string;
+  timestamp: number;
+  category: 'fact' | 'preference' | 'task' | 'reminder' | 'general';
+}
+
+export interface CommandHistory {
+  id: string;
+  command: string;
+  response: string;
+  timestamp: number;
+  intent: string;
+  success: boolean;
+}
+
+export interface JarvisSettings {
+  userName: string;
+  wakeWord: string;
+  voiceEnabled: boolean;
+  voiceRate: number;
+  voicePitch: number;
+  voiceVolume: number;
+  autoListen: boolean;
+  soundEffects: boolean;
+  aiProvider?: 'gemini' | 'openai' | 'ollama';
+  apiKey?: string;
+  apiBase?: string;
+  selectedModel?: string;
+  sttProvider?: 'local' | 'openai' | 'google';
+}
+
+export interface SystemStats {
+  cpu: number;
+  ram: number;
+  battery: number;
+  batteryCharging: boolean;
+  network: boolean;
+  temperature: number;
+  uptime: string;
+}
+
+export interface ParsedCommand {
+  intent: string;
+  params: Record<string, string>;
+  response: string;
+  action?: () => void;
+  confidence: number;
+}
